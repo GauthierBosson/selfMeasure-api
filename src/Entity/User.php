@@ -9,6 +9,7 @@
 namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ApiResource(
@@ -29,7 +30,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Class User
  * @package App\Entity
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -39,25 +40,25 @@ class User
      */
     private $id;
     /**
-     * @ORM\Column(type="string",length=45,nullable=false)
+     * @ORM\Column(type="string",length=100,nullable=false,unique=true)
      * @var string
      */
-    private $name;
+    private $username;
     /**
      * @ORM\Column(type="string",length=100,nullable=false)
      * @var string
      */
-    private $firstname;
-    /**
-     * @ORM\Column(type="integer",length=3,nullable=false)
-     * @var int
-     */
-    private $age;
-    /**
-     * @ORM\Column(type="string",length=45,nullable=false)
-     * @var string
-     */
     private $password;
+    /**
+     * @ORM\Column(name="is_active", type="boolean")
+     */
+    private $isActive;
+
+    public function __construct($username)
+    {
+        $this->isActive = true;
+        $this->username = $username;
+    }
 
     /**
      * @return int
@@ -80,54 +81,18 @@ class User
     /**
      * @return string
      */
-    public function getName(): string
+    public function getUsername(): string
     {
-        return $this->name;
+        return $this->username;
     }
 
     /**
-     * @param string $name
+     * @param string $username
      * @return User
      */
-    public function setName(string $name): self
+    public function setUsername(string $username): self
     {
-        $this->name = $name;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFirstname(): string
-    {
-        return $this->firstname;
-    }
-
-    /**
-     * @param string $firstname
-     * @return User
-     */
-    public function setFirstname(string $firstname): self
-    {
-        $this->firstname = $firstname;
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getAge(): int
-    {
-        return $this->age;
-    }
-
-    /**
-     * @param int $age
-     * @return User
-     */
-    public function setAge(int $age): self
-    {
-        $this->age = $age;
+        $this->username = $username;
         return $this;
     }
 
@@ -149,6 +114,17 @@ class User
         return $this;
     }
 
+    public function getSalt(): ?string
+    {
+        return null;
+    }
 
+    public function getRoles(): array
+    {
+        return array('ROLE_USER');
+    }
 
+    public function eraseCredentials(): void
+    {
+    }
 }
