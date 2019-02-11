@@ -32,6 +32,19 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Poids", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\repas", mappedBy="user")
+     *
+     * /**
+     * @ManyToMany(targetEntity="ConseilPlat")
+     * @JoinTable(
+     *     name="plat_has_user",
+     * )
+     */
+
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
