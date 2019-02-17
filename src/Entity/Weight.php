@@ -35,6 +35,10 @@ class Weight
      * @var int
      */
     private $value;
+    /**
+     * @ORM\ManyToOne(targetEntity="User",inversedBy="weights")
+     */
+    protected $user;
 
     /**
      * @return int

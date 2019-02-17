@@ -37,6 +37,14 @@ class MealAdvice
      * @var int
      */
     private $caloryNumbers;
+    /**
+     * @ORM\OneToMany(targetEntity="Suggestion",mappedBy="mealAdvice")
+     */
+    protected $suggestions;
+    /**
+     * @ORM\ManyToMany(targetEntity="User",mappedBy="mealAdvices")
+     */
+    protected $users;
 
     /**
      * @return int

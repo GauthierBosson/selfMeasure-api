@@ -31,6 +31,10 @@ class Suggestion
      * @ORM\Column(type="date",nullable=false)
      */
     private $date;
+    /**
+     * @ORM\ManyToOne(targetEntity="MealAdvice",inversedBy="suggestions")
+     */
+    protected $mealAdvice;
 
     /**
      * @return int

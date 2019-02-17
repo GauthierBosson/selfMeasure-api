@@ -23,7 +23,7 @@ class Meal
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(type="integer",options={"unsigned": false"})
+     * @ORM\Column(type="integer",options={"unsigned": false})
      * @var int
      */
     private $id;
@@ -40,6 +40,10 @@ class Meal
      * @ORM\Column(type="string",nullable=false,length=45)
      */
     private $dayMoment;
+    /**
+     * @ORM\ManyToOne(targetEntity="User",inversedBy="meals")
+     */
+    protected $user;
 
     /**
      * @return mixed
@@ -50,7 +54,7 @@ class Meal
     }
 
     /**
-     * @param ${SCALAR_TYPE_HINT} $id
+     * @param $id
      * @return Meal
      */
     public function setId($id): self

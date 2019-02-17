@@ -53,6 +53,19 @@ class User implements UserInterface
      * @ORM\Column(name="is_active", type="boolean")
      */
     private $isActive;
+    /**
+     * @ORM\OneToMany(targetEntity="Weight",mappedBy="user")
+     */
+    protected $weights;
+    /**
+     * @ORM\OneToMany(targetEntity="Meal",mappedBy="user")
+     */
+    protected $meals;
+    /**
+     * @ORM\ManyToMany(targetEntity="MealAdvice",inversedBy="users")
+     * @ORM\JoinTable(name="users_mealadvices")
+     */
+    protected $mealAdvices;
 
     public function __construct($username)
     {
