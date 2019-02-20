@@ -8,8 +8,20 @@
 
 namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
+ * @ApiResource(
+ *     itemOperations={
+ *      "get",
+ *       "put",
+ *       "delete"
+ *     },
+ *     collectionOperations={
+ *     "get",
+ *     "post"
+ *     }
+ * )
  * @ORM\Table(
  *     name="weight"
  * )
@@ -39,6 +51,26 @@ class Weight
      * @ORM\ManyToOne(targetEntity="User",inversedBy="weights")
      */
     protected $user;
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param $user
+     * @return Weight
+     */
+    public function setUser($user): self
+    {
+        $this->user = $user;
+        return $this;
+    }
+
+
 
     /**
      * @return int

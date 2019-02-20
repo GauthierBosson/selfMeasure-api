@@ -77,7 +77,32 @@ class User implements UserInterface
      */
     private $isActive = true;
     /**
+     * @ORM\Column(type="string",length=45,nullable=true)
+     * @var string
+     */
+    private $realname;
+    /**
+     * @ORM\Column(type="date",nullable=true)
+     */
+    private $birthdate;
+    /**
+     * @ORM\Column(type="integer",nullable=true)
+     * @var int
+     */
+    private $height;
+    /**
+     * @ORM\Column(type="string",nullable=true)
+     * @var string
+     */
+    private $gender;
+    /**
+     * @ORM\Column(type="integer",nullable=true)
+     * @var int
+     */
+    private $imc;
+    /**
      * @ORM\OneToMany(targetEntity="Weight",mappedBy="user")
+     * @ORM\JoinTable()
      */
     protected $weights;
     /**
@@ -156,7 +181,7 @@ class User implements UserInterface
     }
 
     /**
-     * @param ${SCALAR_TYPE_HINT} $isActive
+     * @param $isActive
      * @return User
      */
     public function setIsActive($isActive): self
@@ -202,4 +227,96 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getRealname(): ?string
+    {
+        return $this->realname;
+    }
+
+    /**
+     * @param string $realname
+     * @return User
+     */
+    public function setRealname(string $realname): self
+    {
+        $this->realname = $realname;
+        return $this;
+    }
+
+    /**
+     * @return mixed|null
+     */
+    public function getBirthdate()
+    {
+        return $this->birthdate;
+    }
+
+    /**
+     * @param $birthdate
+     * @return User
+     */
+    public function setBirthdate($birthdate): self
+    {
+        $this->birthdate = $birthdate;
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getHeight(): ?int
+    {
+        return $this->height;
+    }
+
+    /**
+     * @param int $height
+     * @return User
+     */
+    public function setHeight(int $height): self
+    {
+        $this->height = $height;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getGender(): ?string
+    {
+        return $this->gender;
+    }
+
+    /**
+     * @param string $gender
+     * @return User
+     */
+    public function setGender(string $gender): self
+    {
+        $this->gender = $gender;
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getImc(): ?int
+    {
+        return $this->imc;
+    }
+
+    /**
+     * @param int $imc
+     * @return User
+     */
+    public function setImc(int $imc): self
+    {
+        $this->imc = $imc;
+        return $this;
+    }
+
+
 }

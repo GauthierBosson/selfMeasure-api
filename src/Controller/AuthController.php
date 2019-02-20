@@ -33,8 +33,10 @@ class AuthController extends AbstractController
         try {
             $username = $request->request->get('_username');
             $password = $request->request->get('_password');
+            $realname = $request->request->get('_realname');
             $user = new User($username);
             $user->setPassword($password);
+            $user->setRealname($realname);
             $validator->validate($user);
             $em->persist($user);
             $em->flush();
@@ -43,6 +45,7 @@ class AuthController extends AbstractController
             return $this->json(["errors" => 'error'], JsonResponse::HTTP_BAD_REQUEST);
         }
     }
+
     public function api(): Response
     {
         return new Response(sprintf('Logged in as %s', $this->getUser()->getUsername()));

@@ -17,4 +17,3 @@ register_route:
     defaults:
         _api_ressource_class: App\Entity\User
         _api_collection_operation_name: register
-
