@@ -1,15 +1,19 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
-register:
-    path: /register
-    controller: App\Controller\AuthController::register
-    methods: POST
 
 api:
     path: /api
     controller: App\Controller\AuthController::api
 
 login_check:
-    path:     /login_check
+    path: /login_check
     methods:  [POST]
+
+register_route:
+    path: /register
+    methods: ['POST']
+    controller: App\Controller\AuthController::register
+    defaults:
+        _api_ressource_class: App\Entity\User
+        _api_collection_operation_name: register
