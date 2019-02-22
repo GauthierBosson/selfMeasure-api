@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ApiResource(
  *     itemOperations={
- *      "get",
+ *      "get"={"method"="GET","normalization_context"={"groups"="user:get"}},
  *       "put",
  *       "delete"
  *     },
@@ -60,6 +60,7 @@ class User implements UserInterface
      *     message="Un identifiant est obligatoire"
      * )
      * @Groups({"user:edit"})
+     * @Groups({"user:get"})
      * @var string
      */
     private $username;
@@ -78,31 +79,38 @@ class User implements UserInterface
     private $isActive = true;
     /**
      * @ORM\Column(type="string",length=45,nullable=true)
+     * @Groups({"user:get"})
      * @var string
      */
     private $realname;
     /**
      * @ORM\Column(type="date",nullable=true)
+     * @Groups({"user:get"})
      */
     private $birthdate;
     /**
      * @ORM\Column(type="integer",nullable=true)
+     * @Groups({"user:get"})
      * @var int
      */
     private $height;
     /**
      * @ORM\Column(type="string",nullable=true)
+     * @Groups({"user:get"})
      * @var string
      */
     private $gender;
     /**
-     * @ORM\Column(type="integer",nullable=true)
-     * @var int
+     * @ORM\Column(type="float",nullable=true)
+     * @Groups({"user:get"})
+     * @var float
      */
     private $imc;
     /**
      * @ORM\OneToMany(targetEntity="Weight",mappedBy="user")
      * @ORM\JoinTable()
+     * @Groups({"user:get"})
+     * @var Collection
      */
     protected $weights;
     /**
@@ -301,22 +309,60 @@ class User implements UserInterface
     }
 
     /**
-     * @return int|null
+     * @return float|null
      */
-    public function getImc(): ?int
+    public function getImc(): ?float
     {
         return $this->imc;
     }
 
     /**
-     * @param int $imc
+     * @param float $imc
      * @return User
      */
-    public function setImc(int $imc): self
+    public function setImc(float $imc): self
     {
         $this->imc = $imc;
         return $this;
     }
+
+    /**
+     * @return Collection|null
+     */
+    public function getWeights(): Collection
+    {
+        return $this->weights;
+    }
+
+    /**
+     * @param Collection $weights
+     * @return User
+     */
+    public function setWeights(Collection $weights): self
+    {
+        $this->weights = $weights;
+        return $this;
+    }
+
+    /**
+     * @return mixed|null
+     */
+    public function getMeals()
+    {
+        return $this->meals;
+    }
+
+    /**
+     * @param $meals
+     * @return User
+     */
+    public function setMeals($meals): self
+    {
+        $this->meals = $meals;
+        return $this;
+    }
+
+
 
 
 }
