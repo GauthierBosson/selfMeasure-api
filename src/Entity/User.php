@@ -329,7 +329,7 @@ class User implements UserInterface
     /**
      * @return Collection|null
      */
-    public function getWeights(): Collection
+    public function getWeights(): ?Collection
     {
         return $this->weights;
     }
